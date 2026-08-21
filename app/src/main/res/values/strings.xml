@@ -7,7 +7,22 @@
     <string name="size_xxl">XXL</string>
     <string name="save">บันทึก</string>
     <string name="add_app">เพิ่มแอพ</string>
-    <string name="remove_app">ลากออกเพื่อลบ</string>
+    <string name="remove_app">ลากออกนอกการ์ด หรือกดค้างที่แอพ เพื่อลบ</string>
     <string name="widget_label_normal">โฟลเดอร์ (จำกัดตามขนาด)</string>
     <string name="widget_label_stack">โฟลเดอร์ (ไม่จำกัดจำนวน)</string>
+    <string name="add_app_dialog_title">เลือกแอพที่จะเพิ่ม</string>
+    <string name="menu_remove_from_folder">ลบออกจากโฟลเดอร์</string>
+    <string name="menu_uninstall">ถอนการติดตั้ง</string>
+    <string name="cancel">ยกเลิก</string>
+
+    <string name="github_owner">est1728</string>
+    <string name="github_repo">FolderWidget</string>
+
+    <string name="update_available_title">มีอัปเดตใหม่</string>
+    <string name="update_available_message">พบเวอร์ชันใหม่กว่าที่ติดตั้งอยู่ ต้องการอัปเดตตอนนี้เลยไหม</string>
+    <string name="update_now">อัปเดตเลย</string>
+    <string name="update_later">ไว้ทีหลัง</string>
+    <string name="update_downloading">กำลังโหลดอัปเดต…</string>
+    <string name="update_install_permission_needed">ต้องอนุญาต \"ติดตั้งแอพไม่รู้จัก\" ให้แอพนี้ก่อน 1 ครั้ง</string>
+    <string name="open_settings">เปิดตั้งค่า</string>
 </resources>
