@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  วิตเจ็ตแบบ "ไม่จำกัดจำนวนแอพ" ขนาดคงที่ (ไม่ให้ลากรีไซส์ เพราะดีไซน์คือ
+  3 ไอคอนจริง + 1 ไอคอนรวม เสมอ ไม่ว่าจะมีกี่แอพข้างในก็ตาม)
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="80dp"
+    android:minHeight="80dp"
+    android:targetCellWidth="1"
+    android:targetCellHeight="1"
+    android:resizeMode="none"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/widget_folder_stack"
+    android:configure="com.est.folderwidget.FolderStackConfigActivity"
+    android:widgetCategory="home_screen"
+    android:label="@string/widget_label_stack"
+    android:previewImage="@mipmap/ic_launcher" />

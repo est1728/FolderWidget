@@ -1,0 +1,5 @@
+<resources>
+    <color name="popup_scrim">#66000000</color>
+    <color name="popup_card_bg">#F2FFFFFF</color>
+    <color name="accent_blue">#2F80ED</color>
+</resources>

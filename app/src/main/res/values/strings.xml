@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Folder Widget</string>
+    <string name="config_title">แก้ไขโฟลเดอร์</string>
+    <string name="config_hint">ตั้งชื่อโฟลเดอร์</string>
+    <string name="size_normal">ปกติ</string>
+    <string name="size_expand">ขยาย</string>
+    <string name="size_xxl">XXL</string>
+    <string name="save">บันทึก</string>
+    <string name="add_app">เพิ่มแอพ</string>
+    <string name="remove_app">ลากออกเพื่อลบ</string>
+    <string name="widget_label_normal">โฟลเดอร์ (จำกัดตามขนาด)</string>
+    <string name="widget_label_stack">โฟลเดอร์ (ไม่จำกัดจำนวน)</string>
+</resources>

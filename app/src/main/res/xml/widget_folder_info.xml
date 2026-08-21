@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ขนาดตั้งต้น = กะทัดรัดเท่าไอคอนแอพ 1 ช่อง (โหมด "ปกติ")
+  ผู้ใช้ลาก resize บนหน้าโฮมได้เอง (Android resizable widget)
+  เทียบเท่าโหมด "ขยาย" / "XXL" คือ resize ให้ใหญ่ขึ้น
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="80dp"
+    android:minHeight="80dp"
+    android:targetCellWidth="1"
+    android:targetCellHeight="1"
+    android:maxResizeWidth="360dp"
+    android:maxResizeHeight="360dp"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/widget_folder_small"
+    android:configure="com.est.folderwidget.FolderConfigActivity"
+    android:widgetCategory="home_screen"
+    android:label="@string/widget_label_normal"
+    android:previewImage="@mipmap/ic_launcher" />
