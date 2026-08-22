@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Folder Widget</string>
     <string name="config_title">แก้ไขโฟลเดอร์</string>
+    <string name="default_folder_name">โฟลเดอร์</string>
     <string name="config_hint">ตั้งชื่อโฟลเดอร์</string>
     <string name="size_normal">ปกติ</string>
     <string name="size_expand">ขยาย</string>
@@ -14,9 +15,13 @@
     <string name="menu_remove_from_folder">ลบออกจากโฟลเดอร์</string>
     <string name="menu_uninstall">ถอนการติดตั้ง</string>
     <string name="cancel">ยกเลิก</string>
+    <string name="done">เสร็จ</string>
+    <string name="uninstall_confirm_title">ถอนการติดตั้งแอพที่เลือก</string>
+    <string name="uninstall_confirm_message">จะเปิดหน้าถอนการติดตั้งทีละแอพ (%1$d แอพ)</string>
 
-    <string name="github_owner">est1728</string>
-    <string name="github_repo">FolderWidget</string>
+    <!-- แก้ 2 ค่านี้ให้ตรงกับ GitHub repo จริงของคุณ (เช่น github.com/USERNAME/REPO) -->
+    <string name="github_owner">USERNAME</string>
+    <string name="github_repo">REPO</string>
 
     <string name="update_available_title">มีอัปเดตใหม่</string>
     <string name="update_available_message">พบเวอร์ชันใหม่กว่าที่ติดตั้งอยู่ ต้องการอัปเดตตอนนี้เลยไหม</string>

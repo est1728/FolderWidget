@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <queries>
         <intent>
@@ -17,6 +19,17 @@
         android:theme="@style/Theme.FolderWidget"
         android:supportsRtl="true">
 
+        <!-- หน้าแรกของแอพ (ไอคอนที่กดเปิดได้จากหน้าโฮม) — เช็คอัปเดตทุกครั้งที่เปิด -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FolderWidget">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <!-- Config activity: pick apps + size (like the MIUI screenshot) -->
         <activity
             android:name=".FolderConfigActivity"
@@ -27,17 +40,10 @@
             </intent-filter>
         </activity>
 
-        <!-- Config activity for the unlimited-apps stack widget -->
-        <activity
-            android:name=".FolderStackConfigActivity"
-            android:exported="false"
-            android:theme="@style/Theme.FolderWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-
-        <!-- Popup activity: transparent overlay that "opens" like a folder -->
+        <!-- Popup activity: transparent overlay that "opens" like a folder.
+             resizeableActivity=false stops tablet/desktop skins (MIUI Pad-style
+             freeform windowing) from opening this in a small floating window,
+             which is what let raw home-screen edges show through around it. -->
         <activity
             android:name=".FolderPopupActivity"
             android:exported="false"
@@ -45,9 +51,10 @@
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:taskAffinity=""
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:resizeableActivity="false" />
 
-        <!-- Widget 1: โฟลเดอร์ปกติ (จำกัดตามขนาดที่ลาก 4/9/16) -->
+        <!-- Widget โฟลเดอร์ (ตัวเดียว รวมสไตล์ปกติ/ขยาย/XXL ไว้ในตัวเดียวกัน) -->
         <receiver
             android:name=".FolderWidgetProvider"
             android:exported="true">
@@ -59,17 +66,16 @@
                 android:resource="@xml/widget_folder_info" />
         </receiver>
 
-        <!-- Widget 2: โฟลเดอร์ไม่จำกัดจำนวนแอพ (โชว์ 3 + ไอคอนรวม) -->
-        <receiver
-            android:name=".FolderStackWidgetProvider"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
+        <!-- จำเป็นสำหรับส่งไฟล์ apk ที่โหลดมาแล้วให้ตัวติดตั้งของระบบเปิดได้ (Android 7+ ห้ามส่ง file:// ตรงๆ) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_folder_stack_info" />
-        </receiver>
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 </manifest>

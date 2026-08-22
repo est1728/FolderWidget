@@ -8,22 +8,37 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Adapter สำหรับกริดไอคอนในหน้า popup
- * รองรับ:
- *  - ลากสลับตำแหน่ง (reorder) ผ่าน ItemTouchHelper ที่ผูกไว้ใน FolderPopupActivity
- *  - ปัดขึ้น (swipe up) เพื่อลบออกจากโฟลเดอร์ - ท่าทางมาตรฐานที่ ItemTouchHelper รองรับ
- *    (การ "ลากออกนอกกรอบการ์ด" ต้องใช้ touch listener แยกเพิ่มเติม ถ้าต้องการ
- *    ความรู้สึกแบบ iOS/MIUI เป๊ะ แจ้งได้ จะเพิ่ม custom drag shadow ให้ทีหลัง)
+ *
+ * โหมดปกติ: แตะ = เปิดแอพ, กดค้าง = เริ่มลากสลับตำแหน่ง (ผ่าน ItemTouchHelper
+ * แบบมาตรฐานของ Android — ของเดิมที่เคยลองทำ touch-listener เองแยกจังหวะ
+ * "กดค้างนิ่งๆ" กับ "กดแล้วลาก" กลับไปชนกับการจัดการทัชของ RecyclerView เอง
+ * จนลากไม่ได้เลยในบางเครื่อง เลยกลับมาใช้กลไกมาตรฐานที่เสถียรกว่าแทน)
+ *
+ * โหมดแก้ไข (editMode): เข้าโหมดนี้เมื่อเริ่มลากไอคอนตัวแรก (ดู FolderPopupActivity
+ * ที่ hook เข้า ItemTouchHelper.Callback.onSelectedChanged) ทุกไอคอนจะโชว์วงกลม
+ * เล็กๆ ให้ติ๊กเลือกได้ แตะไอคอนตอนนี้จะ toggle การเลือกแทนการเปิดแอพ
  */
 class DraggableAppAdapter(
     private val items: MutableList<AppItem>,
     private val onAppClick: (AppItem) -> Unit,
     private val onOrderChanged: (List<AppItem>) -> Unit,
-    private val iconLoader: (String) -> android.graphics.drawable.Drawable?
+    private val selectedPackages: MutableSet<String>,
+    private val onToggleSelect: (AppItem) -> Unit
 ) : RecyclerView.Adapter<DraggableAppAdapter.VH>() {
+
+    /** true ระหว่างอยู่ในโหมดแก้ไข (multi-select) */
+    var editMode: Boolean = false
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    var iconLoader: (String) -> android.graphics.drawable.Drawable? = { null }
 
     inner class VH(view: android.view.View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView = view.findViewById(R.id.app_icon)
         val label: TextView = view.findViewById(R.id.app_label)
+        val selectCircle: ImageView = view.findViewById(R.id.select_circle)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -36,7 +51,22 @@ class DraggableAppAdapter(
         val item = items[position]
         holder.label.text = item.label
         holder.icon.setImageDrawable(iconLoader(item.packageName))
-        holder.itemView.setOnClickListener { onAppClick(item) }
+
+        holder.selectCircle.visibility = if (editMode) android.view.View.VISIBLE else android.view.View.GONE
+        holder.selectCircle.setImageResource(
+            if (selectedPackages.contains(item.packageName)) R.drawable.ic_select_on else R.drawable.ic_select_off
+        )
+
+        holder.itemView.setOnClickListener {
+            val pos = holder.bindingAdapterPosition
+            if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
+            if (editMode) {
+                onToggleSelect(items[pos])
+                notifyItemChanged(pos)
+            } else {
+                onAppClick(items[pos])
+            }
+        }
     }
 
     override fun getItemCount() = items.size
@@ -48,17 +78,30 @@ class DraggableAppAdapter(
         notifyItemMoved(fromPosition, toPosition)
     }
 
-    /** เรียกจาก ItemTouchHelper.Callback ตอนปัดออก (ลบ) */
-    fun removeItem(position: Int) {
-        items.removeAt(position)
-        notifyItemRemoved(position)
+    /** เรียกตอนลากออกนอกการ์ด หรือวางบนปุ่มลบ -> ลบออกจากลิสต์ */
+    fun removeItems(packages: Set<String>) {
+        if (packages.isEmpty()) return
+        items.removeAll { it.packageName in packages }
+        notifyDataSetChanged()
         onOrderChanged(items.toList())
     }
 
-    /** เรียกตอนปล่อยนิ้วหลังลากเสร็จ เพื่อบันทึกลำดับใหม่ */
+    fun removeItem(item: AppItem) = removeItems(setOf(item.packageName))
+
+    /** เพิ่มแอพใหม่จากหน้าต่าง "+" แล้วบันทึก+รีเฟรช widget ทันที */
+    fun addItems(newItems: List<AppItem>) {
+        val startPos = items.size
+        items.addAll(newItems)
+        notifyItemRangeInserted(startPos, newItems.size)
+        onOrderChanged(items.toList())
+    }
+
+    /** เรียกจาก ItemTouchHelper.Callback ตอนปล่อยนิ้วหลังลากสลับตำแหน่งเสร็จ */
     fun commitOrder() {
         onOrderChanged(items.toList())
     }
 
     fun currentItems(): List<AppItem> = items.toList()
+
+    fun indexOf(packageName: String): Int = items.indexOfFirst { it.packageName == packageName }
 }

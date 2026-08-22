@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +42,7 @@ class FolderConfigActivity : AppCompatActivity() {
 
         setupSizePicker()
         setupAppList()
+        refreshPreview()
 
         findViewById<android.widget.ImageButton>(R.id.btn_close).setOnClickListener {
             finish()
@@ -71,6 +73,7 @@ class FolderConfigActivity : AppCompatActivity() {
             view.setOnClickListener {
                 selectedSize = key
                 refreshSelection()
+                refreshPreview()
             }
         }
     }
@@ -83,7 +86,29 @@ class FolderConfigActivity : AppCompatActivity() {
             allApps = apps,
             selected = selectedPackages,
             iconLoader = { pkg -> AppRepository.loadIcon(this, pkg) },
-            onSelectionChanged = { /* เก็บใน selectedPackages แบบ realtime อยู่แล้ว */ }
+            onSelectionChanged = { refreshPreview() }
+        )
+    }
+
+    /**
+     * วาดพรีวิวด้วยฟังก์ชันตัวเดียวกับที่ widget จริงใช้ (FolderIconComposer)
+     * รับประกันว่าพรีวิวตรงกับของจริงเป๊ะๆ เสมอ ไม่มีทางเพี้ยน/ว่างเปล่าอีกต่อไป
+     * และยังโชว์มินิพรีวิวบนปุ่มเลือกขนาดทั้ง 3 แบบด้วย (เหมือนของระบบ MIUI จริง)
+     */
+    private fun refreshPreview() {
+        val packages = selectedPackages.toList()
+
+        findViewById<ImageView>(R.id.preview_image).setImageBitmap(
+            FolderIconComposer.compose(this, packages, selectedSize, canvasPx = 320)
+        )
+        findViewById<ImageView>(R.id.size_preview_normal).setImageBitmap(
+            FolderIconComposer.compose(this, packages, PrefsHelper.SIZE_NORMAL, canvasPx = 160)
+        )
+        findViewById<ImageView>(R.id.size_preview_expand).setImageBitmap(
+            FolderIconComposer.compose(this, packages, PrefsHelper.SIZE_EXPAND, canvasPx = 160)
+        )
+        findViewById<ImageView>(R.id.size_preview_xxl).setImageBitmap(
+            FolderIconComposer.compose(this, packages, PrefsHelper.SIZE_XXL, canvasPx = 160)
         )
     }
 

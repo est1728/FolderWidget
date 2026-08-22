@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="NewApi">
 
     <style name="Theme.FolderWidget" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 
@@ -15,6 +16,12 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@style/PopupWindowAnimation</item>
         <item name="android:backgroundDimEnabled">false</item>
+        <!-- บังคับให้หน้าต่างยืดเต็มจอจริงๆ รวมพื้นที่ status bar / navigation bar / รอยบาก
+             (แก้ปัญหาเห็นขอบบน-ล่างของโฮมสกรีนโผล่มา บนเครื่องที่รองรับ freeform window) -->
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="PopupWindowAnimation" parent="android:Animation">

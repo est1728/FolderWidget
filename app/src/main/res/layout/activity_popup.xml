@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/popup_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/popup_scrim">
 
-    <!-- การ์ดโฟลเดอร์ที่เปิดขึ้นมา -->
+    <!--
+      การ์ดโฟลเดอร์ที่เปิดขึ้นมา — กว้าง 86% ของจอ แต่ไม่เกิน 420dp
+      สูงตามเนื้อหาจริง มีเพดานกันล้นจอ (ดู MaxHeightRecyclerView)
+    -->
     <androidx.cardview.widget.CardView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/popup_card"
-        android:layout_width="320dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         app:cardCornerRadius="28dp"
         app:cardBackgroundColor="@color/popup_card_bg"
-        app:cardElevation="12dp">
+        app:cardElevation="12dp"
+        app:layout_constraintWidth_percent="0.86"
+        app:layout_constraintWidth_max="420dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,31 +31,129 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/popup_title"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#222222"
-                android:paddingBottom="12dp"
-                android:text="โฟลเดอร์" />
+                android:paddingBottom="12dp">
 
-            <androidx.recyclerview.widget.RecyclerView
+                <!-- แตะเพื่อแก้ไขชื่อโฟลเดอร์ตรงนี้ได้เลย (เฉพาะตอนไม่ได้อยู่โหมดแก้ไข) -->
+                <TextView
+                    android:id="@+id/popup_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:padding="4dp"
+                    android:text="โฟลเดอร์" />
+
+                <!-- ปุ่ม "เสร็จ" โผล่เฉพาะตอนอยู่ในโหมดแก้ไข (multi-select) -->
+                <TextView
+                    android:id="@+id/popup_btn_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:padding="4dp"
+                    android:textColor="@color/accent_blue"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:text="@string/done"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/popup_btn_add"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:background="@drawable/bg_add_button"
+                    android:contentDescription="@string/add_app"
+                    android:padding="6dp"
+                    android:src="@android:drawable/ic_input_add"
+                    app:tint="@android:color/white" />
+            </FrameLayout>
+
+            <com.est.folderwidget.MaxHeightRecyclerView
                 android:id="@+id/popup_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="360dp" />
-
-            <TextView
-                android:id="@+id/popup_hint"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="10dp"
-                android:textSize="11sp"
-                android:textColor="#888888"
-                android:text="@string/remove_app" />
+                app:maxHeightDp="420" />
+
+            <!--
+              แถบสองปุ่มด้านล่าง โผล่เฉพาะตอนกำลังลากไอคอนอยู่ในโหมดแก้ไข
+              (drop zone: ลากไอคอนไปวางบนปุ่มไหน จะทำงานตามปุ่มนั้นกับทุกแอพที่เลือกไว้ + ตัวที่กำลังลาก)
+            -->
+            <LinearLayout
+                android:id="@+id/dropzone_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/dropzone_remove"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:background="@drawable/bg_dropzone">
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@android:drawable/ic_menu_delete" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="11sp"
+                        android:textColor="#444444"
+                        android:text="@string/menu_remove_from_folder" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dropzone_uninstall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:background="@drawable/bg_dropzone">
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@android:drawable/ic_menu_delete" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="11sp"
+                        android:textColor="#444444"
+                        android:text="@string/menu_uninstall" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</FrameLayout>
+
+    <!--
+      เลเยอร์ลอยด้านบนสุด สำหรับวาดไอคอน "ที่รวมมาที่นิ้ว" ตอนลากหลายแอพพร้อมกัน
+      (ตัวการ์ดหลักคุมด้วย ItemTouchHelper อยู่แล้วสำหรับไอคอนตัวที่ถูกลากจริง
+      ส่วนเลเยอร์นี้ใช้วาดไอคอน "เงา" ของแอพอื่นๆ ที่เลือกไว้ ให้ลอยตามนิ้วไปด้วย)
+      ไม่รับ touch เอง (clickable=false) เพื่อไม่บังการลากของจริงด้านล่าง
+    -->
+    <FrameLayout
+        android:id="@+id/drag_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,11 +6,31 @@
     android:gravity="center"
     android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/app_icon"
+    <FrameLayout
         android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:scaleType="fitCenter" />
+        android:layout_height="56dp">
+
+        <ImageView
+            android:id="@+id/app_icon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="fitCenter" />
+
+        <!--
+          วงกลมเล็กติ๊กเลือก มุมบนซ้ายของไอคอน — โผล่เฉพาะตอนอยู่ในโหมดแก้ไข
+          (กดค้างที่แอพใดก็ได้เพื่อเข้าโหมดนี้ เหมือนระบบจริง)
+        -->
+        <ImageView
+            android:id="@+id/select_circle"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="-4dp"
+            android:layout_marginTop="-4dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_select_off"
+            android:elevation="2dp" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/app_label"

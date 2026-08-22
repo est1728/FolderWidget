@@ -1,5 +1,10 @@
 <resources>
-    <color name="popup_scrim">#66000000</color>
-    <color name="popup_card_bg">#F2FFFFFF</color>
+    <color name="popup_scrim">#33000000</color>
+    <!-- ก่อนหน้านี้ F2 (~95% ทึบ) ทำให้การ์ดดูเป็นกระดาษขาวทึบ ไม่เหมือนป๊อปอัพระบบของ MIUI
+         ที่ใช้ backdrop blur จริง (มองทะลุเห็นวอลเปเปอร์เบลอๆ ด้านหลัง)
+         ลดความทึบลงเหลือ ~72% แล้วพึ่ง Window.setBackgroundBlurRadius (ดู FolderPopupActivity)
+         เป็นตัวเบลอพื้นหลังจริงบนเครื่องที่รองรับ (Android 12/S ขึ้นไป) -->
+    <color name="popup_card_bg">#B8FFFFFF</color>
+    <color name="popup_card_bg_no_blur">#F2FFFFFF</color>
     <color name="accent_blue">#2F80ED</color>
 </resources>

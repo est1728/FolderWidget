@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp">
+
+    <FrameLayout
+        android:id="@+id/widget_root"
+        android:layout_width="248dp"
+        android:layout_height="248dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_folder_card"
+        android:padding="8dp">
+
+        <GridLayout
+            android:id="@+id/mini_grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:columnCount="5"
+            android:rowCount="5"
+            android:alignmentMode="alignMargins">
+
+            <ImageView android:id="@+id/mini_icon_1" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_2" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_3" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_4" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_5" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_6" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_7" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_8" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_9" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_10" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_11" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_12" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_13" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_14" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_15" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_16" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_17" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_18" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_19" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_20" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_21" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_22" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_23" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_24" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+            <ImageView android:id="@+id/mini_icon_25" android:layout_width="0dp" android:layout_height="0dp"
+                android:layout_columnWeight="1" android:layout_rowWeight="1" android:layout_margin="2dp" android:scaleType="fitCenter" />
+        </GridLayout>
+    </FrameLayout>
+</FrameLayout>

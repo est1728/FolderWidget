@@ -7,17 +7,41 @@ android {
     namespace 'com.est.folderwidget'
     compileSdk 34
 
+    // CI (GitHub Actions) ส่ง -PappVersionCode=<เลขวิ่งขึ้นเรื่อยๆ> -PappVersionName=<เช่น 1.2> เข้ามา
+    // ถ้า build เองในเครื่อง (ไม่ผ่าน CI) จะ fallback เป็นค่า default ด้านล่าง
+    def verCode = project.hasProperty('appVersionCode') ? (project.appVersionCode as Integer) : 1
+    def verName = project.hasProperty('appVersionName') ? project.appVersionName : "1.0"
+
     defaultConfig {
         applicationId "com.est.folderwidget"
         minSdk 26
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode verCode
+        versionName verName
+    }
+
+    // เซ็นแอพด้วยคีย์เดียวกันทุกครั้งที่ build (จำเป็นมากสำหรับฟีเจอร์ "อัปเดตในแอพ" —
+    // ถ้าเซ็นด้วยคีย์คนละอันทุกครั้ง Android จะปฏิเสธการติดตั้งทับของเก่า)
+    // อ่านค่าจาก environment variable ที่ตั้งใน GitHub Actions secrets เท่านั้น ไม่ hardcode รหัสในนี้
+    signingConfigs {
+        release {
+            def ksPath = System.getenv("SIGNING_KEYSTORE_PATH")
+            if (ksPath != null) {
+                storeFile file(ksPath)
+                storePassword System.getenv("SIGNING_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("SIGNING_KEY_ALIAS")
+                keyPassword System.getenv("SIGNING_KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            // ใช้ signingConfig เฉพาะตอนที่มี env vars ครบ (เช่นตอนรันบน CI) กัน error ตอน build ในเครื่อง
+            if (System.getenv("SIGNING_KEYSTORE_PATH") != null) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 
@@ -32,6 +56,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 }
 

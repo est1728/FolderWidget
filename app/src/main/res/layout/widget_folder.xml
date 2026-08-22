@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- เลย์เอาต์เดียวสำหรับ widget โฟลเดอร์ทุกสไตล์ (ปกติ/ขยาย/XXL) — ตัว widget เอง
+     เป็นแค่กรอบเปล่าที่โชว์บิตแมปเดียว (ประกอบจาก FolderIconComposer) เต็มพื้นที่
+     ไม่ต้องมีเลย์เอาต์แยกตามจำนวนไอคอนอีกต่อไป เพราะทุกอย่างถูกวาดลงบิตแมปเดียวแล้ว -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/widget_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:padding="2dp" />
+</FrameLayout>

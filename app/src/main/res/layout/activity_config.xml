@@ -52,13 +52,12 @@
         android:layout_margin="16dp"
         android:background="#D8CFFA">
 
-        <GridLayout
-            android:id="@+id/preview_grid"
+        <ImageView
+            android:id="@+id/preview_image"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_gravity="center"
-            android:columnCount="3"
-            android:rowCount="3" />
+            android:scaleType="fitCenter" />
     </FrameLayout>
 
     <TextView
@@ -84,9 +83,12 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_margin="8dp">
-            <View
+            <ImageView
+                android:id="@+id/size_preview_normal"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
                 android:background="@drawable/bg_size_option" />
             <TextView
                 android:id="@+id/label_normal"
@@ -104,9 +106,12 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_margin="8dp">
-            <View
+            <ImageView
+                android:id="@+id/size_preview_expand"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
                 android:background="@drawable/bg_size_option" />
             <TextView
                 android:id="@+id/label_expand"
@@ -124,9 +129,12 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_margin="8dp">
-            <View
+            <ImageView
+                android:id="@+id/size_preview_xxl"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
                 android:background="@drawable/bg_size_option" />
             <TextView
                 android:id="@+id/label_xxl"

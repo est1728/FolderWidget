@@ -5,7 +5,9 @@ import android.content.Context
 /**
  * เก็บข้อมูลของแต่ละโฟลเดอร์ (widgetId) ลง SharedPreferences:
  * - ชื่อโฟลเดอร์
- * - ขนาดที่เลือก (normal / expand / xxl)
+ * - สไตล์ที่เลือก (normal / expand / xxl) — ตัวนี้เป็นตัวกำหนดหน้าตา widget
+ *   เพียงอย่างเดียวเสมอ (ดูเหตุผลใน FolderWidgetProvider — ไม่มีการคำนวณจาก
+ *   ขนาด dp จริงของ widget อีกต่อไป กัน widget เปลี่ยนหน้าตาเองแบบไม่ตั้งใจ)
  * - ลำดับแอพ (เก็บเป็น package name คั่นด้วย , ตามลำดับที่ผู้ใช้ลากจัดเรียง)
  *
  * ใช้ SharedPreferences ธรรมดาพอสำหรับข้อมูลขนาดเล็กแบบนี้ ไม่ต้องพึ่ง DB
